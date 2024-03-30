@@ -1,0 +1,20 @@
+---Deployment file
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dp2
+  name: dp2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dp2
+  template:
+    metadata:
+      labels:
+        app: dp2
+    spec:
+      containers:
+      - image: 922799470279.dkr.ecr.us-east-1.amazonaws.com/repo1:latest
+        name: dp2
