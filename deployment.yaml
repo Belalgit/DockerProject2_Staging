@@ -17,3 +17,5 @@ spec:
       containers:
       - image: 922799470279.dkr.ecr.us-east-1.amazonaws.com/repo1:latest
         name: dp2
+        ports:
+            - containerPort: 8040
