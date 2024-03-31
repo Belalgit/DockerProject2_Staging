@@ -48,8 +48,7 @@ jobs:
         docker system prune --force 
         docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
-    - name: Update kube config
-      run: aws eks update-kubeconfig --name stagingEKS --region us-east-1
+
 
     - name: Deploy to EKS
       env:
