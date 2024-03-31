@@ -55,7 +55,7 @@ jobs:
         sudo mv ./kubectl /usr/local/bin/kubectl
 
     - name: Update kubeconfig
-      run: aws eks update-kubeconfig --name stagingeks2 --region us-east-1
+      run: aws eks update-kubeconfig --region us-east-1 --name stagingeks2 
 
     - name: Deploy to EKS
       env:
