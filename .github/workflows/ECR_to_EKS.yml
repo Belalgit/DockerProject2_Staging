@@ -36,8 +36,8 @@ jobs:
     - name: Setup EKS Kubectl
       uses: zachguo/setup-eks-kubectl@v1
       with:
-        cluster: your-cluster # name of your EKS cluster
-        region: us-west-2 # region of your EKS cluster
+        cluster: stagingeks # name of your EKS cluster
+        region: us-east-1 # region of your EKS cluster
         namespace: production # optional namespace context, default value is 'default'
 
     - name: Login to Amazon ECR
