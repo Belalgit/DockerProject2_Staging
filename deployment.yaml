@@ -19,3 +19,4 @@ spec:
         name: dp2
         ports:
             - containerPort: 8040
+              name: dp2
