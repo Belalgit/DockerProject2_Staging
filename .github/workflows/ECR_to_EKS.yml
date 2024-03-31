@@ -26,11 +26,12 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Install kubectl
-      run: |
-        curl -LO "https://amazon-eks.s3.us-east-1.amazonaws.com/1.29.0/2024-01-04/bin/linux/amd64/kubectl
-        chmod +x ./kubectl
-        mv ./kubectl /usr/local/bin
+    - name: Setup EKS Kubectl
+      uses: zachguo/setup-eks-kubectl@v1
+      with:
+        cluster: your-cluster # name of your EKS cluster
+        region: us-west-2 # region of your EKS cluster
+        namespace: production # optional namespace context, default value is 'default'
     
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
