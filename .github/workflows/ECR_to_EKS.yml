@@ -48,8 +48,10 @@ jobs:
         docker system prune --force 
         docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
     
-    - name: Setup EKS Kubectl
-      run: aws eks update-kubeconfig --region us-east-1 --name stagingeks
+    - name: Set up Kubeconfig
+      uses: aws-actions/configure-kubectl@v1
+      with:
+        cluster-name: stagingeks
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
