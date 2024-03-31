@@ -15,7 +15,7 @@ jobs:
   build:
     
     name: Deployment
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
 
@@ -48,6 +48,8 @@ jobs:
         docker system prune --force 
         docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
+    - name: Update kube config
+      run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
 
     - name: Deploy to EKS
       env:
