@@ -30,5 +30,4 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          kubectl apply -f deployment.yaml 
-          kubectl apply -f service.yaml
+          aws eks --region us-east-1 update-kubeconfig --name stagingeks
