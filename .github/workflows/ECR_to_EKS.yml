@@ -48,13 +48,10 @@ jobs:
         docker system prune --force 
         docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG
     
-    - name: Install kubectl
+    - name: Install kubectl and update kubeconfig
       run: |
         curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.0/2024-01-04/bin/linux/amd64/kubectl
-
-
-    - name: Update kubeconfig
-      run: aws eks update-kubeconfig --region us-east-1 --name stagingeks
+        aws eks update-kubeconfig --region us-east-1 --name stagingeks
 
     - name: ECR image Deploy to EKS 
       env:
