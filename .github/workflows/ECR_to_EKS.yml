@@ -54,14 +54,14 @@ jobs:
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
 
+    - name: Update kubeconfig
+      run: aws eks update-kubeconfig --region us-east-1 --name stagingeks
+
     - name: Deploy to EKS
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
-        IMAGE_TAG: latest
+        IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-        mkdir -p $HOME/.kube
-        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-        sudo chown $(id -u):$(id -g) $HOME/.kube/config
         sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" ./deployment.yaml && \
         kubectl apply -f ./deployment.yaml
         kubectl apply -f ./service.yaml
