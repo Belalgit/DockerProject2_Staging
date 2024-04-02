@@ -37,17 +37,13 @@ jobs:
       - name: Install eksctl
         uses: moia-oss/setup-eksctl@v1
         with:
-          version: '0.57.0'  # Specify the desired eksctl version (or use 'latest')
+          version: 'latest'  # Specify the desired eksctl version (or use 'latest')
 
       - name: Update kube config
         run: |
-          mv ~/.kube/config ~/.kube/config.bk
           aws eks update-kubeconfig --name eksstaging --region us-east-1
 
       - name: Deploy to EKS 
         run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install --update
           kubectl apply -f ./deployment.yaml --kubeconfig=/home/ubuntu/.kube/config
           kubectp apply -f ./service.yaml
