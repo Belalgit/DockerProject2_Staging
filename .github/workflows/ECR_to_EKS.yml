@@ -34,8 +34,10 @@ jobs:
         run: |
           docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ secrets.AWS_ECR_REPO_NAME }}:latest
 
-      - name: Update kube config
-        run: aws eks update-kubeconfig --name eksstaging
+      - name: Configure Kubernetes client
+        uses: silverlyra/setup-aws-eks@v0.1
+        with:
+          cluster: my-cluster-name
 
       - name: Deploy to EKS 
         run: |
