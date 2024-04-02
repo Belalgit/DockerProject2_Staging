@@ -5,7 +5,7 @@ metadata:
     app: dp2
   name: dp2
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: dp2
