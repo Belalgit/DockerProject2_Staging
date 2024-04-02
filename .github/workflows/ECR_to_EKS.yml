@@ -44,6 +44,5 @@ jobs:
 
       - name: Deploy to EKS 
         run: |
-          sudo rm -rf $HOME/.kube && mkdir -p $HOME/.kube
-          kubectl apply -f ./deployment.yaml --kubeconfig=~/.kube/config
+          kubectl apply -f ./deployment.yaml --kubeconfig=/path/to/kubeconfig.yaml
           kubectp apply -f ./service.yaml
