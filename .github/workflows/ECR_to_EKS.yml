@@ -11,16 +11,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v3
+        uses: azure/setup-kubectl@v2.0
         with:
           version: 'v1.24.0'  # default is latest stable
         id: install
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -28,14 +28,14 @@ jobs:
 
       - name: Login to AWS ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v3
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Pull ECR image
         run: |
           docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/${{ secrets.AWS_ECR_REPO_NAME }}:latest
 
       - name: Install eksctl
-        uses: moia-oss/setup-eksctl@v2
+        uses: moia-oss/setup-eksctl@v1
         with:
           version: '0.57.0'  # Specify the desired eksctl version (or use 'latest')
 
@@ -50,4 +50,6 @@ jobs:
           ls -l ~/.kube/config
           kubectl apply -f ./service.yaml
           kubectl config view --flatten > ~/.kube/config
-          
+
+
+          kubectp apply -f ./service.yaml
